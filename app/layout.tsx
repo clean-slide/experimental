@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/provider/theme-provider"
 import { cn } from "@/lib/utils"
 import { Toaster } from "@/components/ui/sonner"
 import { Metadata } from "next"
+import { ClerkProvider } from "@clerk/nextjs"
+import { dark } from '@clerk/ui/themes'
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" })
 
@@ -39,10 +41,15 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>
-          {children}
-          <Toaster />
-        </ThemeProvider>
+        <ClerkProvider
+          appearance={{
+            theme: dark,
+          }}>
+          <ThemeProvider>
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   )
